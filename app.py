@@ -1,8 +1,12 @@
 import os
-import telebot
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+from telegram import Update
+from telegram.ext import Application, CommandHandler, ContextTypes
 
-BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
+BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN") or os.getenv("BOT_TOKEN")
+
+if not BOT_TOKEN:
+    raise ValueError("Telegram bot token is missing. Add TELEGRAM_BOT_TOKEN in Render Environment Variables.")
+
 PAYSTACK_LINK = "https://paystack.shop/pay/-ck9j9uxpa"
 
 bot = telebot.TeleBot(BOT_TOKEN)
